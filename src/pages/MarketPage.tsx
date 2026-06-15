@@ -31,11 +31,70 @@ const personas = [
 ];
 
 const competitors = [
-  { name: 'Todoist', focus: 'مدیریت تسک', aiInsight: '❌', orgDash: '❌', persian: '❌', price: '۶$/ماه', local: '❌' },
-  { name: 'Notion', focus: 'مدیریت دانش', aiInsight: '⚡ ضعیف', orgDash: '⚡ محدود', persian: '❌', price: '۸$/ماه', local: '❌' },
-  { name: 'Toggl', focus: 'ردیاب زمان', aiInsight: '❌', orgDash: '✅', persian: '❌', price: '۹$/ماه', local: '❌' },
-  { name: 'Google Calendar', focus: 'تقویم', aiInsight: '❌', orgDash: '❌', persian: '⚡', price: 'رایگان', local: '❌' },
-  { name: 'LifeFlow ✨', focus: 'بهره‌وری AI', aiInsight: '✅', orgDash: '✅', persian: '✅', price: '۹۹k تومان', local: '✅', highlight: true },
+  {
+    name: 'Jira',
+    focus: 'Project Management',
+    aiInsight: '⚡',
+    orgDash: '✅',
+    persian: '❌',
+    price: '$8.15/user',
+    local: '❌',
+  },
+  {
+    name: 'ClickUp',
+    focus: 'Productivity Platform',
+    aiInsight: '✅',
+    orgDash: '✅',
+    persian: '❌',
+    price: '$10/user',
+    local: '❌',
+  },
+  {
+    name: 'Asana',
+    focus: 'Team Collaboration',
+    aiInsight: '⚡',
+    orgDash: '✅',
+    persian: '❌',
+    price: '$10.99/user',
+    local: '❌',
+  },
+  {
+    name: 'Monday',
+    focus: 'Work OS',
+    aiInsight: '⚡',
+    orgDash: '✅',
+    persian: '❌',
+    price: '$9/user',
+    local: '❌',
+  },
+  {
+    name: 'کسبینو',
+    focus: 'CRM & Workflow',
+    aiInsight: '❌',
+    orgDash: '⚡',
+    persian: '✅',
+    price: 'سفارشی',
+    local: '✅',
+  },
+  {
+    name: 'تسکولو',
+    focus: 'Task Management',
+    aiInsight: '❌',
+    orgDash: '⚡',
+    persian: '✅',
+    price: 'اشتراکی',
+    local: '✅',
+  },
+  {
+    name: 'LifeFlow ✨',
+    focus: 'AI Productivity Intelligence',
+    aiInsight: '✅',
+    orgDash: '✅',
+    persian: '✅',
+    price: '۹۹k تومان',
+    local: '✅',
+    highlight: true,
+  },
 ];
 
 export default function MarketPage({ onNavigate: _ }: Props) {
@@ -196,7 +255,73 @@ export default function MarketPage({ onNavigate: _ }: Props) {
             </div>
           </div>
         </div>
-
+        <div className="card" style={{ padding: '32px', marginBottom: '32px' }}>
+          <h2
+            style={{
+              fontSize: '22px',
+              fontWeight: 700,
+              color: '#f0f6fc',
+              marginBottom: '24px',
+            }}
+          >
+            🚀 مزیت رقابتی LifeFlow
+          </h2>
+          
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))',
+              gap: '16px',
+            }}
+          >
+            {[
+              {
+                title: 'AI Productivity Intelligence',
+                desc: 'تحلیل عمیق رفتار کاری کاربران و استخراج الگوهای بهره‌وری',
+              },
+              {
+                title: 'Burnout Prediction',
+                desc: 'شناسایی افراد در معرض فرسودگی قبل از افت عملکرد',
+              },
+              {
+                title: 'Team Health Dashboard',
+                desc: 'نمای زنده از سلامت و وضعیت تیم',
+              },
+              {
+                title: 'Persian First',
+                desc: 'طراحی و تجربه کاربری بومی برای بازار ایران',
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  background: '#0d1117',
+                  padding: '20px',
+                  borderRadius: '12px',
+                  border: '1px solid #30363d',
+                }}
+              >
+                <h3
+                  style={{
+                    color: '#58a6ff',
+                    marginBottom: '12px',
+                  }}
+                >
+                  {item.title}
+                </h3>
+                
+                <p
+                  style={{
+                    color: '#8b949e',
+                    lineHeight: 1.8,
+                  }}
+                >
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
         {/* SWOT */}
         <div>
           <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f0f6fc', marginBottom: '20px' }}>

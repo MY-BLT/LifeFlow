@@ -24,12 +24,124 @@ const PAGES_WITHOUT_NAV: Page[] = ['login'];
 
 function CompetitorPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
   const comps = [
-    { name: 'Todoist', logo: '✅', founded: '۲۰۰۷', users: '۳۰M', price: '$6/mo', strengths: ['رابط ساده', 'همگام‌سازی', 'دسترسی‌پذیری'], weaknesses: ['بدون AI', 'بدون تحلیل رفتار', 'فارسی ضعیف'], score: 65 },
-    { name: 'Notion', logo: '📝', founded: '۲۰۱۶', users: '۲۰M', price: '$8/mo', strengths: ['همه‌کاره', 'قابل‌سازی', 'بانک دانش'], weaknesses: ['پیچیدگی بالا', 'بدون HR Analytics', 'کند'], score: 72 },
-    { name: 'Toggl', logo: '⏱️', founded: '۲۰۱۳', users: '۵M', price: '$9/mo', strengths: ['ردیاب زمان دقیق', 'گزارش کار', 'تیمی'], weaknesses: ['فقط ردیابی', 'بدون بینش', 'UI قدیمی'], score: 58 },
-    { name: 'Google Calendar', logo: '📅', founded: '۲۰۰۶', users: '500M', price: 'رایگان', strengths: ['رایگان', 'یکپارچه', 'قابل اعتماد'], weaknesses: ['تقویم محور', 'بدون تحلیل', 'بدون AI'], score: 40 },
-    { name: 'LifeFlow', logo: '⚡', founded: '۱۴۰۵', users: '۱۲K+', price: '99K تومان', strengths: ['AI رفتاری', 'فارسی کامل', 'آفلاین', 'سازمانی', 'قیمت مناسب'], weaknesses: ['برند جدید', 'اکوسیستم کوچک‌تر'], score: 91, highlight: true },
-  ];
+  {
+    name: 'Jira',
+    logo: '🔷',
+    founded: '۲۰۰۲',
+    users: '300K+ Companies',
+    price: '$8.15/user',
+    strengths: [
+      'مدیریت پروژه حرفه‌ای',
+      'Workflow قدرتمند',
+      'محبوب در تیم‌های توسعه',
+    ],
+    weaknesses: [
+      'بدون تحلیل بهره‌وری',
+      'بدون پیش‌بینی فرسودگی',
+      'پیچیدگی بالا',
+    ],
+    score: 74,
+  },
+
+  {
+    name: 'ClickUp',
+    logo: '🟣',
+    founded: '۲۰۱۷',
+    users: '10M+',
+    price: '$10/user',
+    strengths: [
+      'همه‌کاره',
+      'AI داخلی',
+      'مدیریت پروژه و اسناد',
+    ],
+    weaknesses: [
+      'پیچیدگی زیاد',
+      'رابط شلوغ',
+      'عدم بومی‌سازی',
+    ],
+    score: 81,
+  },
+
+  {
+    name: 'Notion',
+    logo: '📝',
+    founded: '۲۰۱۶',
+    users: '100M+',
+    price: '$8/mo',
+    strengths: [
+      'بانک دانش',
+      'انعطاف بالا',
+      'اکوسیستم قوی',
+    ],
+    weaknesses: [
+      'تحلیل عملکرد ندارد',
+      'مدیریت تیم ضعیف‌تر',
+      'نیاز به تنظیمات زیاد',
+    ],
+    score: 76,
+  },
+
+  {
+    name: 'تسکولو',
+    logo: '📋',
+    founded: '۱۳۹۶',
+    users: '100K+',
+    price: 'اشتراکی',
+    strengths: [
+      'فارسی',
+      'مدیریت وظایف',
+      'مناسب تیم‌های کوچک',
+    ],
+    weaknesses: [
+      'بدون AI',
+      'بدون تحلیل بهره‌وری',
+      'گزارش محدود',
+    ],
+    score: 63,
+  },
+
+  {
+    name: 'کسبینو',
+    logo: '🏢',
+    founded: '۱۳۹۸',
+    users: 'Enterprise',
+    price: 'سفارشی',
+    strengths: [
+      'CRM',
+      'اتوماسیون',
+      'مناسب سازمان‌ها',
+    ],
+    weaknesses: [
+      'تمرکز بر فروش',
+      'بدون Productivity Analytics',
+      'بدون AI پیشرفته',
+    ],
+    score: 67,
+  },
+
+  {
+    name: 'LifeFlow',
+    logo: '⚡',
+    founded: '۱۴۰۵',
+    users: '12K+',
+    price: '99K تومان',
+    strengths: [
+      'AI Productivity Intelligence',
+      'تحلیل رفتار کاری',
+      'پیش‌بینی فرسودگی',
+      'سلامت تیم',
+      'رابط فارسی کامل',
+      'ذخیره‌سازی محلی',
+      'داشبورد شخصی و سازمانی',
+    ],
+    weaknesses: [
+      'برند نوپا',
+      'اکوسیستم کوچک‌تر',
+    ],
+    score: 94,
+    highlight: true,
+  },
+];
 
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px' }}>
@@ -78,21 +190,132 @@ function CompetitorPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) 
           ))}
         </div>
 
-        <div className="card" style={{ padding: '32px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f0f6fc', marginBottom: '20px' }}>🎯 موقعیت‌یابی رقابتی</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
-            {[
-              { title: 'LifeFlow vs Todoist', desc: 'Todoist task management است، LifeFlow behavioral intelligence. دو محصول کاملاً متفاوت.', color: '#58a6ff' },
-              { title: 'LifeFlow vs Notion', desc: 'Notion همه‌چیز است اما هیچ‌چیز نیست. LifeFlow یک کار را عالی انجام می‌دهد: تحلیل بهره‌وری.', color: '#3fb950' },
-              { title: 'LifeFlow vs Toggl', desc: 'Toggl زمان را ردیابی می‌کند. LifeFlow می‌گوید با آن زمان چه اتفاقی افتاده و چرا.', color: '#bc8cff' },
-            ].map((item, i) => (
-              <div key={i} style={{ padding: '20px', borderRadius: '12px', background: `${item.color}08`, border: `1px solid ${item.color}25` }}>
-                <h3 style={{ fontSize: '13px', fontWeight: 700, color: item.color, marginBottom: '10px' }}>{item.title}</h3>
-                <p style={{ fontSize: '13px', color: '#8b949e', lineHeight: 1.7 }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+   <div className="card" style={{ padding: '32px' }}>
+  <h2
+    style={{
+      fontSize: '18px',
+      fontWeight: 700,
+      color: '#f0f6fc',
+      marginBottom: '20px',
+    }}
+  >
+    🎯 موقعیت‌یابی رقابتی
+  </h2>
+
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '16px',
+    }}
+  >
+    {[
+      {
+        title: 'LifeFlow vs Jira',
+        desc: 'Jira برای مدیریت پروژه ساخته شده است. LifeFlow علاوه بر مدیریت کار، بهره‌وری واقعی افراد، سلامت تیم و ریسک فرسودگی را تحلیل می‌کند.',
+        color: '#58a6ff',
+      },
+
+      {
+        title: 'LifeFlow vs ClickUp',
+        desc: 'ClickUp یک Work OS قدرتمند است اما تمرکز اصلی آن روی وظایف و فرآیندهاست. LifeFlow بر تحلیل رفتار کاری و بهینه‌سازی عملکرد انسانی تمرکز دارد.',
+        color: '#3fb950',
+      },
+
+      {
+        title: 'LifeFlow vs Notion',
+        desc: 'Notion مرکز دانش و مستندسازی است. LifeFlow یک موتور هوشمند تحلیل بهره‌وری است که از داده‌ها بینش عملی استخراج می‌کند.',
+        color: '#bc8cff',
+      },
+
+      {
+        title: 'LifeFlow vs تسکولو',
+        desc: 'تسکولو مدیریت وظایف را برای تیم‌های ایرانی ساده می‌کند. LifeFlow یک لایه هوش مصنوعی برای تحلیل عملکرد، سلامت تیم و تصمیم‌گیری مدیریتی اضافه می‌کند.',
+        color: '#d29922',
+      },
+
+      {
+        title: 'LifeFlow vs کسبینو',
+        desc: 'کسبینو بر CRM و فرآیندهای فروش تمرکز دارد. LifeFlow بر بهره‌وری کارکنان، کیفیت کار و توسعه عملکرد تیم‌ها متمرکز است.',
+        color: '#f85149',
+      },
+
+      {
+        title: 'مزیت منحصربه‌فرد LifeFlow',
+        desc: 'اکثر رقبا پروژه‌ها را مدیریت می‌کنند. LifeFlow انسان‌ها را درون پروژه تحلیل می‌کند و با AI نقاط افت بهره‌وری را قبل از تبدیل شدن به مشکل شناسایی می‌کند.',
+        color: '#58a6ff',
+      },
+    ].map((item, i) => (
+      <div
+        key={i}
+        style={{
+          padding: '20px',
+          borderRadius: '12px',
+          background: `${item.color}08`,
+          border: `1px solid ${item.color}25`,
+          transition: 'all 0.25s ease',
+        }}
+      >
+        <h3
+          style={{
+            fontSize: '14px',
+            fontWeight: 700,
+            color: item.color,
+            marginBottom: '12px',
+          }}
+        >
+          {item.title}
+        </h3>
+
+        <p
+          style={{
+            fontSize: '13px',
+            color: '#8b949e',
+            lineHeight: 1.8,
+          }}
+        >
+          {item.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <div
+    style={{
+      marginTop: '24px',
+      padding: '24px',
+      borderRadius: '14px',
+      background: 'rgba(88,166,255,0.08)',
+      border: '1px solid rgba(88,166,255,0.2)',
+      textAlign: 'center',
+    }}
+  >
+    <h3
+      style={{
+        color: '#58a6ff',
+        marginBottom: '12px',
+        fontSize: '22px',
+        fontWeight: 800,
+      }}
+    >
+      پروژه‌ها مهم هستند؛ اما انسان‌ها مهم‌ترند.
+    </h3>
+
+    <p
+      style={{
+        color: '#c9d1d9',
+        lineHeight: 2,
+        maxWidth: '850px',
+        margin: '0 auto',
+      }}
+    >
+      Jira، ClickUp و Asana به شما می‌گویند چه کاری انجام شده است.
+      <br />
+      LifeFlow به شما می‌گوید چرا انجام نشده، چه کسی در معرض افت
+      عملکرد قرار دارد و چگونه می‌توان بهره‌وری تیم را افزایش داد.
+    </p>
+  </div>
+</div>
       </div>
     </div>
   );
