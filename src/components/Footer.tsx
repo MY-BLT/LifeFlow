@@ -19,12 +19,10 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
               width: '32px', height: '32px', borderRadius: '8px',
-              background: 'linear-gradient(135deg, #58a6ff, #bc8cff)',
+              background: 'linear-gradient(135deg, #4c4d4e, #14101a)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-              </svg>
+            <img src="/lifeflowlogo.png" width="25" height="25" alt="LifeFlow" />
             </div>
             <span style={{ fontWeight: 800, color: '#f0f6fc', fontSize: '17px' }}>LifeFlow</span>
           </div>

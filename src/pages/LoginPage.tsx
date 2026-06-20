@@ -64,14 +64,12 @@ export default function LoginPage({ onNavigate }: LoginPageProps) {
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{
             width: '56px', height: '56px', borderRadius: '14px',
-            background: 'linear-gradient(135deg, #58a6ff, #bc8cff)',
+            background: 'linear-gradient(135deg, #4c4d4e, #14101a)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 16px',
             boxShadow: '0 0 30px rgba(88,166,255,0.3)',
           }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
+            <img src="/lifeflowlogo.png" width="25" height="25" alt="LifeFlow" />
           </div>
           <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#f0f6fc', marginBottom: '6px' }}>ورود به LifeFlow</h1>
           <p style={{ fontSize: '14px', color: '#8b949e' }}>دستیار هوشمند بهره‌وری شخصی و سازمانی</p>
