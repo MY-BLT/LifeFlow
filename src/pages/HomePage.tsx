@@ -48,7 +48,7 @@ const stats = [
   { value: '+۴۲٪', label: 'افزایش بهره‌وری', icon: '📈' },
   { value: '۳.۲h', label: 'صرفه‌جویی روزانه', icon: '⏰' },
   { value: '۸۷٪', label: 'کاهش استرس', icon: '😌' },
-  { value: '۱۲k+', label: 'کاربر فعال', icon: '👥' },
+  { value: '...', label: 'کاربر فعال', icon: '👥' },
 ];
 
 const testimonials = [
@@ -255,7 +255,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               ))}
             </div>
             <span style={{ fontSize: '14px', color: '#8b949e' }}>
-              <span style={{ color: '#f0f6fc', fontWeight: 700 }}>+۱۲,۰۰۰</span> تیم و فرد حرفه‌ای
+              <span style={{ color: '#f0f6fc', fontWeight: 700 }}>مناسب</span> تیم و فرد حرفه‌ای
             </span>
             <div style={{ display: 'flex', gap: '2px' }}>
               {Array(5).fill(0).map((_, i) => <span key={i} style={{ color: '#d29922', fontSize: '16px' }}>★</span>)}

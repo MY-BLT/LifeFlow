@@ -23,272 +23,346 @@ type Page =
 const PAGES_WITHOUT_NAV: Page[] = ['login'];
 
 function CompetitorPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
-  const comps = [
-  {
-    name: 'Jira',
-    logo: '🔷',
-    founded: '۲۰۰۲',
-    users: '300K+ Companies',
-    price: '$8.15/user',
-    strengths: [
-      'مدیریت پروژه حرفه‌ای',
-      'Workflow قدرتمند',
-      'محبوب در تیم‌های توسعه',
-    ],
-    weaknesses: [
-      'بدون تحلیل بهره‌وری',
-      'بدون پیش‌بینی فرسودگی',
-      'پیچیدگی بالا',
-    ],
-    score: 74,
-  },
-
-  {
-    name: 'ClickUp',
-    logo: '🟣',
-    founded: '۲۰۱۷',
-    users: '10M+',
-    price: '$10/user',
-    strengths: [
-      'همه‌کاره',
-      'AI داخلی',
-      'مدیریت پروژه و اسناد',
-    ],
-    weaknesses: [
-      'پیچیدگی زیاد',
-      'رابط شلوغ',
-      'عدم بومی‌سازی',
-    ],
-    score: 81,
-  },
-
-  {
-    name: 'Notion',
-    logo: '📝',
-    founded: '۲۰۱۶',
-    users: '100M+',
-    price: '$8/mo',
-    strengths: [
-      'بانک دانش',
-      'انعطاف بالا',
-      'اکوسیستم قوی',
-    ],
-    weaknesses: [
-      'تحلیل عملکرد ندارد',
-      'مدیریت تیم ضعیف‌تر',
-      'نیاز به تنظیمات زیاد',
-    ],
-    score: 76,
-  },
-
-  {
-    name: 'تسکولو',
-    logo: '📋',
-    founded: '۱۳۹۶',
-    users: '100K+',
-    price: 'اشتراکی',
-    strengths: [
-      'فارسی',
-      'مدیریت وظایف',
-      'مناسب تیم‌های کوچک',
-    ],
-    weaknesses: [
-      'بدون AI',
-      'بدون تحلیل بهره‌وری',
-      'گزارش محدود',
-    ],
-    score: 63,
-  },
-
-  {
-    name: 'کسبینو',
-    logo: '🏢',
-    founded: '۱۳۹۸',
-    users: 'Enterprise',
-    price: 'سفارشی',
-    strengths: [
-      'CRM',
-      'اتوماسیون',
-      'مناسب سازمان‌ها',
-    ],
-    weaknesses: [
-      'تمرکز بر فروش',
-      'بدون Productivity Analytics',
-      'بدون AI پیشرفته',
-    ],
-    score: 67,
-  },
-
-  {
-    name: 'LifeFlow',
-    logo: '⚡',
-    founded: '۱۴۰۵',
-    users: '12K+',
-    price: '99K تومان',
-    strengths: [
-      'AI Productivity Intelligence',
-      'تحلیل رفتار کاری',
-      'پیش‌بینی فرسودگی',
-      'سلامت تیم',
-      'رابط فارسی کامل',
-      'ذخیره‌سازی محلی',
-      'داشبورد شخصی و سازمانی',
-    ],
-    weaknesses: [
-      'برند نوپا',
-      'اکوسیستم کوچک‌تر',
-    ],
-    score: 94,
-    highlight: true,
-  },
-];
-
+    const allComps = [
+    {
+      name: 'LifeFlow (MVP)',
+      category: 'Predictive Behavior Intelligence',
+      logo: '⚡',
+      status: '۰ کاربر (در حال توسعه)',
+      price: '۹۹,۰۰۰ تومان',
+      score: 96,
+      similarity: 100,
+      strengths: ['پیش‌بینی شکست اهداف قبل از وقوع', 'تحلیل ریشه‌ای (Root Cause)', 'حریم خصوصی ۱۰۰٪ محلی (Edge AI)'],
+      weaknesses: ['برند نوپا', 'فقدان دیتای اولیه کاربران'],
+      highlight: true,
+      tier: 'primary'
+    },
+    {
+      name: 'Rize.io',
+      category: 'AI Productivity Tracker',
+      logo: '🧠',
+      status: '۳۰۰K+ کاربر فعال',
+      price: '$۱۶.۹۹ / ماه',
+      score: 89,
+      similarity: 90,
+      strengths: ['ردیابی خودکار دقیق', 'تحلیل عمیق تمرکز (Deep Work)', 'رابط کاربری بسیار جذاب'],
+      weaknesses: ['قیمت بالا برای کاربر ایرانی', 'عدم تحلیل علل رفتاری'],
+      tier: 'primary'
+    },
+    {
+      name: 'Motion',
+      category: 'AI Auto-Scheduling',
+      logo: '📅',
+      status: '۸۰K+ کاربر',
+      price: '$۱۹ / ماه',
+      score: 84,
+      similarity: 80,
+      strengths: ['برنامه‌ریزی خودکار تقویم', 'استفاده عالی از الگوریتم‌ها', 'صرفه‌جویی در زمان جلسات'],
+      weaknesses: ['هزینه بسیار سنگین', 'عدم بومی‌سازی تقویم شمسی'],
+      tier: 'primary'
+    },
+    {
+      name: 'Reclaim.ai',
+      category: 'AI Calendar Assistant',
+      logo: '🔄',
+      status: '۲۰۰K+ کاربر',
+      price: '$۱۰ / ماه',
+      score: 80,
+      similarity: 75,
+      strengths: ['ایجاد تعادل کار و زندگی', 'محافظت از زمان تمرکز', 'ادغام عالی با Google Calendar'],
+      weaknesses: ['فقط محدود به تقویم', 'بدون تحلیل رفتار نرم‌افزاری'],
+      tier: 'primary'
+    },
+    {
+      name: 'RescueTime',
+      category: 'Time Analytics',
+      logo: '⏳',
+      status: '۲M+ کاربر',
+      price: '$۱۲ / ماه',
+      score: 70,
+      similarity: 70,
+      strengths: ['بلاک کردن حواس‌پرتی‌ها', 'سابقه طولانی و دیتای قوی', 'پشتیبانی از تمام پلتفرم‌ها'],
+      weaknesses: ['تحلیل‌های سطحی و قدیمی', 'عدم ارائه راهکار هوشمند'],
+      tier: 'secondary'
+    },
+    {
+      name: 'Endel',
+      category: 'Neuroscience Focus',
+      logo: '🎵',
+      status: '۳M+ نصب',
+      price: '$۹.۹۹ / ماه',
+      score: 76,
+      similarity: 50,
+      strengths: ['ایجاد تمرکز با صدا (Soundscape)', 'پایه علمی و بیومتریک', 'تجربه کاربری فوق‌العاده'],
+      weaknesses: ['فقط ابزار کمکی است', 'مدیریت تسک ندارد'],
+      tier: 'secondary'
+    },
+    {
+      name: 'Microsoft Viva',
+      category: 'Employee Experience',
+      logo: '🪁',
+      status: 'Enterprise Only',
+      price: '$۴ / کاربر (M365)',
+      score: 78,
+      similarity: 45,
+      strengths: ['تحلیل سلامت سازمانی', 'یکپارچگی با Teams', 'داده‌های بزرگ (Big Data)'],
+      weaknesses: ['عدم دسترسی برای فریلنسرها', 'تمرکز بر مانیتورینگ مدیریت'],
+      tier: 'secondary'
+    },
+    {
+      name: 'ClickUp',
+      category: 'Work OS',
+      logo: '🟣',
+      status: '۱۲M+ کاربر',
+      price: '$۱۲ / ماه',
+      score: 82,
+      similarity: 35,
+      strengths: ['یک ابزار برای همه کارها', 'امکانات بی‌پایان سفارشی‌سازی', 'AI داخلی برای متن'],
+      weaknesses: ['کندی سرعت (Performance)', 'منحنی یادگیری سخت'],
+      tier: 'secondary'
+    },
+    {
+      name: 'Jira (Atlassian)',
+      category: 'Project Management',
+      logo: '🔷',
+      status: '۳۵۰K+ سازمان',
+      price: '$۸.۵۰ / کاربر',
+      score: 75,
+      similarity: 30,
+      strengths: ['استاندارد جهانی مدیریت پروژه', 'یکپارچگی با تمام ابزارها', 'مناسب برای سازمان‌های بزرگ'],
+      weaknesses: ['پیچیدگی بیش از حد', 'عدم تمرکز بر سلامت فردی'],
+      tier: 'secondary'
+    },
+    {
+      name: 'تسکولو (Taskulu)',
+      category: 'Local Project Management',
+      logo: '📋',
+      status: '۱۲۰K+ کاربر ایرانی',
+      price: '۴۹,۰۰۰ تومان',
+      score: 64,
+      similarity: 25,
+      strengths: ['رابط فارسی عالی', 'سرورهای داخل کشور', 'سادگی برای تیم‌های کوچک'],
+      weaknesses: ['فقدان هوش مصنوعی پیشرفته', 'گزارش‌های سنتی و دستی'],
+      tier: 'secondary'
+    },
+    {
+      name: 'میزیتو (Mizito)',
+      category: 'Social Project Management',
+      logo: '🤝',
+      status: '۹۰K+ کاربر ایرانی',
+      price: '۸۵,۰۰۰ تومان',
+      score: 62,
+      similarity: 20,
+      strengths: ['ساختار شبکه اجتماعی', 'مناسب برای پیگیری سریع', 'اپلیکیشن موبایل بومی'],
+      weaknesses: ['عدم تحلیل بهره‌وری تخصصی', 'بدون موتور پیش‌بین'],
+      tier: 'secondary'
+    },
+    {
+      name: 'کسبینو',
+      category: 'Business Process',
+      logo: '🏢',
+      status: 'Enterprise',
+      price: 'سفارشی',
+      score: 58,
+      similarity: 15,
+      strengths: ['اتوماسیون اداری', 'CRM داخلی', 'پشتیبانی دولتی/سازمانی'],
+      weaknesses: ['رابط کاربر قدیمی', 'فقدان دیدگاه Productivity'],
+      tier: 'secondary'
+    }
+  ];
+const getSimColor = (sim: number) => sim >= 80 ? '#3fb950' : sim >= 60 ? '#58a6ff' : '#8b949e';
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 24px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span className="badge badge-danger" style={{ marginBottom: '16px', display: 'inline-flex' }}>تحلیل رقبا</span>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, color: '#f0f6fc', marginBottom: '16px' }}>چشم‌انداز رقابتی</h1>
-          <p style={{ fontSize: '16px', color: '#8b949e', maxWidth: '600px', margin: '0 auto' }}>مقایسه جامع LifeFlow با رقبای اصلی بازار</p>
+      <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '0 24px 60px' }}>
+        
+        {/* هدر صفحه */}
+        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+          <span className="badge badge-danger" style={{ marginBottom: '16px', display: 'inline-flex' }}>تحلیل جامع اکوسیستم ۲۰۲۶</span>
+          <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 900, color: '#f0f6fc', marginBottom: '16px' }}>چشم‌انداز رقبا</h1>
+          <p style={{ fontSize: '18px', color: '#8b949e', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6 }}>
+            مقایسه <span style={{ color: '#58a6ff' }}>۱۲ رقیب کلیدی</span> بر اساس شباهت استراتژیک و قابلیت‌های فنی با LifeFlow
+          </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-          {comps.map((comp, i) => (
+        {/* گرید کارت‌های رقبا - نمایش کامل ۱۲ کارت بدون محدودیت */}
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', 
+          gap: '24px',
+          marginBottom: '60px'
+        }}>
+          {allComps.map((comp, i) => (
             <div key={i} className="card" style={{
-              padding: '24px', position: 'relative', overflow: 'hidden',
-              border: comp.highlight ? '1px solid #58a6ff' : '1px solid #30363d',
-              boxShadow: comp.highlight ? '0 0 30px rgba(88,166,255,0.15)' : 'none',
+              padding: '28px',
+              position: 'relative',
+              border: comp.highlight ? '2px solid #58a6ff' : '1px solid #30363d',
+              background: comp.highlight ? 'rgba(88,166,255,0.05)' : '#161b22',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              transition: 'all 0.3s ease'
             }}>
               {comp.highlight && (
-                <div style={{ position: 'absolute', top: '12px', left: '12px', background: '#58a6ff', color: '#0d1117', padding: '2px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 700 }}>
-                  ما
+                <div style={{ 
+                  position: 'absolute', top: '-12px', right: '24px', 
+                  background: 'linear-gradient(135deg, #58a6ff, #bc8cff)', 
+                  color: '#0d1117', padding: '4px 14px', borderRadius: '12px', 
+                  fontSize: '11px', fontWeight: 900, boxShadow: '0 4px 12px rgba(88,166,255,0.3)'
+                }}>
+                  محصول ما (Proposed)
                 </div>
               )}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <span style={{ fontSize: '32px' }}>{comp.logo}</span>
-                <div>
-                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: comp.highlight ? '#58a6ff' : '#f0f6fc' }}>{comp.name}</h3>
-                  <div style={{ fontSize: '11px', color: '#8b949e' }}>{comp.users} کاربر · {comp.price}</div>
+
+              {/* ردیف اول: لوگو، نام و امتیاز */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <div style={{ 
+                    fontSize: '28px', background: '#0d1117', width: '52px', height: '52px', 
+                    borderRadius: '12px', display: 'flex', alignItems: 'center', 
+                    justifyContent: 'center', border: '1px solid #30363d' 
+                  }}>
+                    {comp.logo}
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f0f6fc', margin: 0 }}>{comp.name}</h3>
+                    <div style={{ fontSize: '12px', color: '#8b949e', marginTop: '2px' }}>{comp.category}</div>
+                  </div>
                 </div>
-                <div style={{ marginRight: 'auto', textAlign: 'center' }}>
-                  <div style={{ fontSize: '24px', fontWeight: 800, color: comp.score >= 80 ? '#3fb950' : comp.score >= 60 ? '#d29922' : '#f85149' }}>{comp.score}</div>
-                  <div style={{ fontSize: '10px', color: '#8b949e' }}>امتیاز</div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 900, color: getSimColor(comp.similarity) }}>{comp.score}</div>
+                  <div style={{ fontSize: '10px', color: '#6e7681', letterSpacing: '1px' }}>SCORE</div>
                 </div>
               </div>
-              <div style={{ marginBottom: '12px' }}>
-                <div style={{ fontSize: '11px', color: '#3fb950', fontWeight: 600, marginBottom: '6px' }}>✓ نقاط قوت</div>
-                {comp.strengths.map((s, k) => <div key={k} style={{ fontSize: '12px', color: '#8b949e', padding: '2px 0' }}>· {s}</div>)}
+
+              {/* بخش شباهت رفتاری */}
+              <div style={{ 
+                background: '#0d1117', padding: '10px 14px', borderRadius: '10px', 
+                border: '1px solid #21262d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' 
+              }}>
+                <span style={{ fontSize: '12px', color: '#8b949e' }}>شباهت استراتژیک:</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '80px', height: '6px', background: '#21262d', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: `${comp.similarity}%`, height: '100%', background: getSimColor(comp.similarity) }} />
+                  </div>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: getSimColor(comp.similarity), minWidth: '35px' }}>{comp.similarity}%</span>
+                </div>
               </div>
-              <div>
-                <div style={{ fontSize: '11px', color: '#f85149', fontWeight: 600, marginBottom: '6px' }}>✗ نقاط ضعف</div>
-                {comp.weaknesses.map((s, k) => <div key={k} style={{ fontSize: '12px', color: '#8b949e', padding: '2px 0' }}>· {s}</div>)}
+
+              {/* برچسب‌های وضعیت و قیمت */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '6px', background: '#21262d', color: '#c9d1d9', border: '1px solid #30363d' }}>
+                  👥 {comp.status}
+                </span>
+                <span style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '6px', background: 'rgba(63,185,80,0.1)', color: '#3fb950', border: '1px solid rgba(63,185,80,0.2)' }}>
+                  💰 {comp.price}
+                </span>
               </div>
-              <div style={{ marginTop: '16px', height: '6px', background: '#21262d', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${comp.score}%`, background: comp.score >= 80 ? '#3fb950' : comp.score >= 60 ? '#d29922' : '#f85149', borderRadius: '3px', transition: 'width 1s ease' }} />
+
+              {/* نقاط قوت - نمایش کامل لیست */}
+              <div style={{ marginTop: '8px' }}>
+                <div style={{ color: '#3fb950', fontWeight: 800, fontSize: '12px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>✓</span> نقاط قوت (Strengths)
+                </div>
+                {comp.strengths.map((s, k) => (
+                  <div key={k} style={{ fontSize: '13px', color: '#c9d1d9', marginBottom: '6px', lineHeight: 1.5, paddingRight: '12px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', right: 0, color: '#3fb950' }}>•</span> {s}
+                  </div>
+                ))}
+              </div>
+
+              {/* نقاط ضعف - نمایش کامل لیست */}
+              <div style={{ marginTop: '8px', borderTop: '1px solid #21262d', paddingTop: '16px' }}>
+                <div style={{ color: '#f85149', fontWeight: 800, fontSize: '12px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>✗</span> نقاط ضعف (Weaknesses)
+                </div>
+                {comp.weaknesses.map((w, k) => (
+                  <div key={k} style={{ fontSize: '13px', color: '#8b949e', marginBottom: '6px', lineHeight: 1.5, paddingRight: '12px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', right: 0, color: '#f85149' }}>•</span> {w}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
 
+
    <div className="card" style={{ padding: '32px' }}>
-  <h2
-    style={{
-      fontSize: '18px',
-      fontWeight: 700,
-      color: '#f0f6fc',
-      marginBottom: '20px',
-    }}
-  >
-    🎯 موقعیت‌یابی رقابتی
+<div className="card" style={{ padding: '32px', marginBottom: '40px' }}>
+  <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#f0f6fc', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+    🎯 موقعیت‌یابی استراتژیک (Strategic Positioning)
   </h2>
 
-  <div
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '16px',
-    }}
-  >
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
     {[
       {
-        title: 'LifeFlow vs Jira',
-        desc: 'Jira برای مدیریت پروژه ساخته شده است. LifeFlow علاوه بر مدیریت کار، بهره‌وری واقعی افراد، سلامت تیم و ریسک فرسودگی را تحلیل می‌کند.',
+        title: 'LifeFlow vs Jira / ClickUp',
+        desc: 'ابزارهای مدیریت پروژه بر "تسک‌ها" و "فرآیندها" تمرکز دارند. لایف‌فلو لایه‌ای هوشمند روی آن‌هاست که بر "انسان" و "پتانسیل عملکردی" تمرکز می‌کند.',
         color: '#58a6ff',
+        icon: '🔗'
       },
-
       {
-        title: 'LifeFlow vs ClickUp',
-        desc: 'ClickUp یک Work OS قدرتمند است اما تمرکز اصلی آن روی وظایف و فرآیندهاست. LifeFlow بر تحلیل رفتار کاری و بهینه‌سازی عملکرد انسانی تمرکز دارد.',
+        title: 'LifeFlow vs Rize / RescueTime',
+        desc: 'رقبای جهانی بر "ثبت گذشته" (چه اتفاقی افتاد؟) تمرکز دارند. لایف‌فلو بر "پیش‌بینی آینده" (چه اتفاقی خواهد افتاد؟) و تحلیل ریشه‌ای شکست تمرکز دارد.',
         color: '#3fb950',
+        icon: '🔮'
       },
-
       {
-        title: 'LifeFlow vs Notion',
-        desc: 'Notion مرکز دانش و مستندسازی است. LifeFlow یک موتور هوشمند تحلیل بهره‌وری است که از داده‌ها بینش عملی استخراج می‌کند.',
+        title: 'LifeFlow vs Motion / Reclaim',
+        desc: 'دستیارهای تقویم فقط زمان را جابه‌جا می‌کنند. لایف‌فلو سطح "انرژی و تمرکز" کاربر را تحلیل می‌کند تا زمان درست برای کار درست را پیشنهاد دهد.',
         color: '#bc8cff',
+        icon: '⚡'
       },
-
       {
-        title: 'LifeFlow vs تسکولو',
-        desc: 'تسکولو مدیریت وظایف را برای تیم‌های ایرانی ساده می‌کند. LifeFlow یک لایه هوش مصنوعی برای تحلیل عملکرد، سلامت تیم و تصمیم‌گیری مدیریتی اضافه می‌کند.',
+        title: 'LifeFlow vs ابزارهای بومی (تسکولو/میزیتو)',
+        desc: 'ابزارهای ایرانی مدیریت وظایف را بومی کرده‌اند. لایف‌فلو "هوش مصنوعی سطح جهانی" را با فرهنگ کاری و تقویم فارسی ترکیب کرده است.',
         color: '#d29922',
+        icon: '🇮🇷'
       },
-
       {
-        title: 'LifeFlow vs کسبینو',
-        desc: 'کسبینو بر CRM و فرآیندهای فروش تمرکز دارد. LifeFlow بر بهره‌وری کارکنان، کیفیت کار و توسعه عملکرد تیم‌ها متمرکز است.',
+        title: 'LifeFlow vs Microsoft Viva',
+        desc: 'Viva مختص سازمان‌های بزرگ است. لایف‌فلو این قدرت تحلیلی را در ابعادی چابک برای فریلنسرها و تیم‌های تکنولوژی کوچک (SME) فراهم می‌کند.',
         color: '#f85149',
+        icon: '🪁'
       },
-
       {
-        title: 'مزیت منحصربه‌فرد LifeFlow',
-        desc: 'اکثر رقبا پروژه‌ها را مدیریت می‌کنند. LifeFlow انسان‌ها را درون پروژه تحلیل می‌کند و با AI نقاط افت بهره‌وری را قبل از تبدیل شدن به مشکل شناسایی می‌کند.',
+        title: 'مزیت انحصاری: Root Cause Analysis',
+        desc: 'تنها سیستمی که به جای سرزنش کاربر برای اتلاف وقت، علت ریشه‌ای آن (بی‌خوابی، تداخل جلسات، افت انرژی) را شناسایی و رفع می‌کند.',
         color: '#58a6ff',
+        icon: '💎'
       },
     ].map((item, i) => (
       <div
         key={i}
         style={{
-          padding: '20px',
-          borderRadius: '12px',
-          background: `${item.color}08`,
-          border: `1px solid ${item.color}25`,
-          transition: 'all 0.25s ease',
+          padding: '24px',
+          borderRadius: '16px',
+          background: `${item.color}05`,
+          border: `1px solid ${item.color}15`,
+          transition: 'transform 0.2s ease',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <h3
-          style={{
-            fontSize: '14px',
-            fontWeight: 700,
-            color: item.color,
-            marginBottom: '12px',
-          }}
-        >
+        <div style={{ fontSize: '24px', marginBottom: '12px' }}>{item.icon}</div>
+        <h3 style={{ fontSize: '15px', fontWeight: 800, color: item.color, marginBottom: '10px' }}>
           {item.title}
         </h3>
-
-        <p
-          style={{
-            fontSize: '13px',
-            color: '#8b949e',
-            lineHeight: 1.8,
-          }}
-        >
+        <p style={{ fontSize: '13.5px', color: '#8b949e', lineHeight: 1.8 }}>
           {item.desc}
         </p>
       </div>
     ))}
   </div>
 
-  <div
-    style={{
-      marginTop: '24px',
-      padding: '24px',
-      borderRadius: '14px',
-      background: 'rgba(88,166,255,0.08)',
-      border: '1px solid rgba(88,166,255,0.2)',
-      textAlign: 'center',
-    }}
+<div
+    style={{ 
+    marginTop: '32px', 
+    padding: '30px', 
+    borderRadius: '20px', 
+    background: 'linear-gradient(135deg, rgba(88,166,255,0.1) 0%, rgba(188,140,255,0.05) 100%)', 
+    border: '1px solid rgba(88,166,255,0.2)', 
+    textAlign: 'center' 
+  }}
   >
     <h3
       style={{
@@ -309,12 +383,16 @@ function CompetitorPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) 
         margin: '0 auto',
       }}
     >
-      Jira، ClickUp و Asana به شما می‌گویند چه کاری انجام شده است.
+      <strong>Jira، ClickUp و Asana</strong> به شما می‌گویند چه کاری انجام شده است.
       <br />
       LifeFlow به شما می‌گوید چرا انجام نشده، چه کسی در معرض افت
       عملکرد قرار دارد و چگونه می‌توان بهره‌وری تیم را افزایش داد.
+      <br />
+
+      <span style={{ color: '#8b949e', fontSize: '13px' }}>(رویکرد نوین LifeFlow برای سال ۲۰۲۶)</span>
     </p>
   </div>
+</div>
 </div>
       </div>
     </div>

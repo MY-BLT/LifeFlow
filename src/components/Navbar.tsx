@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { storage } from '../utils/storage';
 
+
 interface NavbarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
@@ -83,7 +84,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               <div key={link.label} style={{ position: 'relative' }}>
                 <button
                   onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
-                  onBlur={() => setTimeout(() => setOpenDropdown(null), 150)}
+                  onBlur={() => setTimeout(() => setOpenDropdown(null), 3000)}
                   style={{
                     padding: '6px 12px', borderRadius: '6px',
                     background: 'transparent',
