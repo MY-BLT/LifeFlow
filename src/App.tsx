@@ -12,6 +12,7 @@ import MarketPage from './pages/MarketPage';
 import RevenuePage from './pages/RevenuePage';
 import RoadmapPage from './pages/RoadmapPage';
 import MarketingPage from './pages/MarketingPage';
+import React from 'react';
 
 type Page =
   | 'home' | 'login'
@@ -29,7 +30,7 @@ function CompetitorPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) 
       category: 'Predictive Behavior Intelligence',
       logo: '⚡',
       status: '۰ کاربر (در حال توسعه)',
-      price: '۹۹,۰۰۰ تومان',
+      price: '۴۹,۰۰۰ تومان',
       score: 96,
       similarity: 100,
       strengths: ['پیش‌بینی شکست اهداف قبل از وقوع', 'تحلیل ریشه‌ای (Root Cause)', 'حریم خصوصی ۱۰۰٪ محلی (Edge AI)'],
@@ -176,115 +177,256 @@ const getSimColor = (sim: number) => sim >= 80 ? '#3fb950' : sim >= 60 ? '#58a6f
       <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '0 24px 60px' }}>
         
         {/* هدر صفحه */}
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <span className="badge badge-danger" style={{ marginBottom: '16px', display: 'inline-flex' }}>تحلیل جامع اکوسیستم ۲۰۲۶</span>
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 900, color: '#f0f6fc', marginBottom: '16px' }}>چشم‌انداز رقبا</h1>
-          <p style={{ fontSize: '18px', color: '#8b949e', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6 }}>
-            مقایسه <span style={{ color: '#58a6ff' }}>۱۲ رقیب کلیدی</span> بر اساس شباهت استراتژیک و قابلیت‌های فنی با LifeFlow
-          </p>
-        </div>
+{/* ===== چشم‌انداز رقبا (کارت‌های خلاصه با Hover) ===== */}
+<div style={{ marginBottom: '40px' }}>
+  <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+    <span className="badge badge-danger" style={{ marginBottom: '16px', display: 'inline-flex' }}>تحلیل جامع اکوسیستم ۲۰۲۶</span>
+    <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 900, color: '#f0f6fc', marginBottom: '16px' }}>
+      چشم‌انداز رقبا
+    </h1>
+    <p style={{ fontSize: '18px', color: '#8b949e', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6 }}>
+      مقایسه <span style={{ color: '#58a6ff' }}>{allComps.length} رقیب کلیدی</span> بر اساس شباهت استراتژیک و قابلیت‌های فنی با LifeFlow
+    </p>
+  </div>
 
-        {/* گرید کارت‌های رقبا - نمایش کامل ۱۲ کارت بدون محدودیت */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', 
-          gap: '24px',
-          marginBottom: '60px'
-        }}>
-          {allComps.map((comp, i) => (
-            <div key={i} className="card" style={{
-              padding: '28px',
-              position: 'relative',
-              border: comp.highlight ? '2px solid #58a6ff' : '1px solid #30363d',
-              background: comp.highlight ? 'rgba(88,166,255,0.05)' : '#161b22',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-              transition: 'all 0.3s ease'
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+    gap: '24px',
+    marginBottom: '60px'
+  }}>
+    {allComps.map((comp, i) => {
+      const [isHovered, setIsHovered] = React.useState(false);
+      const simColor = getSimColor(comp.similarity);
+      
+      return (
+        <div
+          key={i}
+          className="card"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{
+            padding: '28px',
+            position: 'relative',
+            border: comp.highlight ? '2px solid #58a6ff' : '1px solid #30363d',
+            background: comp.highlight ? 'rgba(88,166,255,0.05)' : '#161b22',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            transition: 'all 0.3s ease',
+            cursor: 'default',
+            transform: isHovered ? 'translateY(-4px)' : 'none',
+            boxShadow: isHovered ? '0 8px 30px rgba(88,166,255,0.15)' : 'none',
+          }}
+        >
+          {/* برچسب "محصول ما" */}
+          {comp.highlight && (
+            <div style={{
+              position: 'absolute',
+              top: '-12px',
+              right: '24px',
+              background: 'linear-gradient(135deg, #58a6ff, #bc8cff)',
+              color: '#0d1117',
+              padding: '4px 14px',
+              borderRadius: '12px',
+              fontSize: '11px',
+              fontWeight: 900,
+              boxShadow: '0 4px 12px rgba(88,166,255,0.3)',
             }}>
-              {comp.highlight && (
-                <div style={{ 
-                  position: 'absolute', top: '-12px', right: '24px', 
-                  background: 'linear-gradient(135deg, #58a6ff, #bc8cff)', 
-                  color: '#0d1117', padding: '4px 14px', borderRadius: '12px', 
-                  fontSize: '11px', fontWeight: 900, boxShadow: '0 4px 12px rgba(88,166,255,0.3)'
-                }}>
-                  محصول ما (Proposed)
-                </div>
-              )}
+              محصول ما (Proposed)
+            </div>
+          )}
 
-              {/* ردیف اول: لوگو، نام و امتیاز */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                  <div style={{ 
-                    fontSize: '28px', background: '#0d1117', width: '52px', height: '52px', 
-                    borderRadius: '12px', display: 'flex', alignItems: 'center', 
-                    justifyContent: 'center', border: '1px solid #30363d' 
-                  }}>
-                    {comp.logo}
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f0f6fc', margin: 0 }}>{comp.name}</h3>
-                    <div style={{ fontSize: '12px', color: '#8b949e', marginTop: '2px' }}>{comp.category}</div>
-                  </div>
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '24px', fontWeight: 900, color: getSimColor(comp.similarity) }}>{comp.score}</div>
-                  <div style={{ fontSize: '10px', color: '#6e7681', letterSpacing: '1px' }}>SCORE</div>
-                </div>
-              </div>
-
-              {/* بخش شباهت رفتاری */}
-              <div style={{ 
-                background: '#0d1117', padding: '10px 14px', borderRadius: '10px', 
-                border: '1px solid #21262d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' 
+          {/* ردیف اول: لوگو، نام و امتیاز */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <div style={{
+                fontSize: '28px',
+                background: '#0d1117',
+                width: '52px',
+                height: '52px',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #30363d',
               }}>
-                <span style={{ fontSize: '12px', color: '#8b949e' }}>شباهت استراتژیک:</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '80px', height: '6px', background: '#21262d', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${comp.similarity}%`, height: '100%', background: getSimColor(comp.similarity) }} />
-                  </div>
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: getSimColor(comp.similarity), minWidth: '35px' }}>{comp.similarity}%</span>
-                </div>
+                {comp.logo}
               </div>
-
-              {/* برچسب‌های وضعیت و قیمت */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '6px', background: '#21262d', color: '#c9d1d9', border: '1px solid #30363d' }}>
-                  👥 {comp.status}
-                </span>
-                <span style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '6px', background: 'rgba(63,185,80,0.1)', color: '#3fb950', border: '1px solid rgba(63,185,80,0.2)' }}>
-                  💰 {comp.price}
-                </span>
-              </div>
-
-              {/* نقاط قوت - نمایش کامل لیست */}
-              <div style={{ marginTop: '8px' }}>
-                <div style={{ color: '#3fb950', fontWeight: 800, fontSize: '12px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>✓</span> نقاط قوت (Strengths)
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f0f6fc', margin: 0 }}>
+                  {comp.name}
+                </h3>
+                <div style={{ fontSize: '12px', color: '#8b949e', marginTop: '2px' }}>
+                  {comp.category}
                 </div>
-                {comp.strengths.map((s, k) => (
-                  <div key={k} style={{ fontSize: '13px', color: '#c9d1d9', marginBottom: '6px', lineHeight: 1.5, paddingRight: '12px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', right: 0, color: '#3fb950' }}>•</span> {s}
-                  </div>
-                ))}
-              </div>
-
-              {/* نقاط ضعف - نمایش کامل لیست */}
-              <div style={{ marginTop: '8px', borderTop: '1px solid #21262d', paddingTop: '16px' }}>
-                <div style={{ color: '#f85149', fontWeight: 800, fontSize: '12px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>✗</span> نقاط ضعف (Weaknesses)
-                </div>
-                {comp.weaknesses.map((w, k) => (
-                  <div key={k} style={{ fontSize: '13px', color: '#8b949e', marginBottom: '6px', lineHeight: 1.5, paddingRight: '12px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', right: 0, color: '#f85149' }}>•</span> {w}
-                  </div>
-                ))}
               </div>
             </div>
-          ))}
-        </div>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: simColor }}>
+                {comp.score}
+              </div>
+              <div style={{ fontSize: '10px', color: '#6e7681', letterSpacing: '1px' }}>SCORE</div>
+            </div>
+          </div>
 
+          {/* بخش شباهت رفتاری */}
+          <div style={{
+            background: '#0d1117',
+            padding: '10px 14px',
+            borderRadius: '10px',
+            border: '1px solid #21262d',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+            <span style={{ fontSize: '12px', color: '#8b949e' }}>شباهت استراتژیک:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ width: '80px', height: '6px', background: '#21262d', borderRadius: '3px', overflow: 'hidden' }}>
+                <div style={{
+                  width: `${comp.similarity}%`,
+                  height: '100%',
+                  background: simColor,
+                  borderRadius: '3px',
+                }} />
+              </div>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: simColor, minWidth: '35px' }}>
+                {comp.similarity}%
+              </span>
+            </div>
+          </div>
+
+          {/* برچسب‌های وضعیت و قیمت */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              background: '#21262d',
+              color: '#c9d1d9',
+              border: '1px solid #30363d',
+            }}>
+              👥 {comp.status}
+            </span>
+            <span style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              background: 'rgba(63,185,80,0.1)',
+              color: '#3fb950',
+              border: '1px solid rgba(63,185,80,0.2)',
+            }}>
+              💰 {comp.price}
+            </span>
+          </div>
+
+          {/* نقاط قوت و ضعف - نمایش خلاصه به صورت پیش‌فرض، کامل روی هاور */}
+          <div style={{ marginTop: '4px' }}>
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+              flexDirection: isHovered ? 'column' : 'row',
+              transition: 'all 0.3s ease',
+            }}>
+              {/* نقاط قوت */}
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  color: '#3fb950',
+                  fontWeight: 800,
+                  fontSize: '12px',
+                  marginBottom: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}>
+                  <span>✓</span> نقاط قوت (Strengths)
+                </div>
+                {isHovered ? (
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {comp.strengths.map((s, idx) => (
+                      <li key={idx} style={{
+                        fontSize: '13px',
+                        color: '#c9d1d9',
+                        marginBottom: '6px',
+                        paddingRight: '12px',
+                        position: 'relative',
+                        lineHeight: 1.5,
+                      }}>
+                        <span style={{ position: 'absolute', right: 0, color: '#3fb950' }}>•</span> {s}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#8b949e', lineHeight: 1.6 }}>
+                    {comp.strengths.slice(0, 2).join(' • ')}
+                    {comp.strengths.length > 2 && (
+                      <span style={{ color: '#58a6ff', marginRight: '4px' }}> …</span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* نقاط ضعف */}
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  color: '#f85149',
+                  fontWeight: 800,
+                  fontSize: '12px',
+                  marginBottom: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}>
+                  <span>✗</span> نقاط ضعف (Weaknesses)
+                </div>
+                {isHovered ? (
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {comp.weaknesses.map((w, idx) => (
+                      <li key={idx} style={{
+                        fontSize: '13px',
+                        color: '#8b949e',
+                        marginBottom: '6px',
+                        paddingRight: '12px',
+                        position: 'relative',
+                        lineHeight: 1.5,
+                      }}>
+                        <span style={{ position: 'absolute', right: 0, color: '#f85149' }}>•</span> {w}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#8b949e', lineHeight: 1.6 }}>
+                    {comp.weaknesses.slice(0, 2).join(' • ')}
+                    {comp.weaknesses.length > 2 && (
+                      <span style={{ color: '#58a6ff', marginRight: '4px' }}> …</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* راهنمای هاور */}
+            <div style={{
+              marginTop: '14px',
+              paddingTop: '12px',
+              borderTop: '1px solid #21262d',
+              fontSize: '11px',
+              color: '#8b949e',
+              textAlign: 'center',
+              transition: 'all 0.3s ease',
+            }}>
+              {isHovered ? (
+                <span style={{ color: '#58a6ff' }}>📌 نمایش کامل نقاط قوت و ضعف</span>
+              ) : (
+                <span>🖱️ هاور کنید برای مشاهده جزئیات کامل</span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
 
    <div className="card" style={{ padding: '32px' }}>
 <div className="card" style={{ padding: '32px', marginBottom: '40px' }}>
@@ -475,6 +617,8 @@ function IntermediationPage({ onNavigate: _ }: { onNavigate: (p: string) => void
   );
 }
 
+// ===== در فایل App.tsx، بخش DocsPage را با این بخش جایگزین کنید =====
+
 function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px' }}>
@@ -502,36 +646,46 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
             title: '📁 ساختار فایل‌ها',
             code: `src/
 ├── App.tsx                    # Router اصلی
+├── main.tsx                   # نقطه ورود برنامه
 ├── index.css                  # سیستم طراحی
+├── project_dump.txt           # خروجی دامپ پروژه (مختص توسعه)
 ├── components/
-│   └── Navbar.tsx             # ناوبری
+│   ├── Footer.tsx             # فوتر سایت
+│   ├── Navbar.tsx             # نوار ناوبری
+│   └── ProjectExplorer.tsx    # اکسپلورر بخش‌های پروژه
+├── data/
+│   └── sampleData.ts          # داده‌های نمونه (فعالیت‌ها، تیم، ...)
 ├── pages/
 │   ├── HomePage.tsx           # صفحه اصلی
-│   ├── LoginPage.tsx          # ورود
-│   ├── PersonalDemoPage.tsx   # دمو شخصی
-│   ├── OrgDemoPage.tsx        # دمو سازمانی
+│   ├── LoginPage.tsx          # ورود به سیستم
+│   ├── PersonalDemoPage.tsx   # دمو شخصی (داشبورد کاربر)
+│   ├── OrgDemoPage.tsx        # دمو سازمانی (داشبورد تیم)
 │   ├── IdeaPage.tsx           # منشأ ایده
 │   ├── MaturityPage.tsx       # بلوغ ایده
 │   ├── ValuePage.tsx          # خلق ارزش
-│   ├── BusinessModelPage.tsx  # مدل کسب‌وکار
-│   ├── MarketPage.tsx         # بازار + رقبا
-│   ├── MarketingPage.tsx      # بازاریابی
-│   ├── RevenuePage.tsx        # درآمد
-│   └── RoadmapPage.tsx        # نقشه راه
-├── utils/
-│   ├── storage.ts             # LocalStorage API
-│   └── analytics.ts           # AI Engine
-└── data/
-    └── sampleData.ts          # داده‌های نمونه`,
+│   ├── BusinessModelPage.tsx  # مدل کسب‌وکار (BMC)
+│   ├── MarketPage.tsx         # تحلیل بازار و رقبا
+│   ├── MarketingPage.tsx      # استراتژی بازاریابی
+│   ├── RevenuePage.tsx        # مدل درآمد و قیمت‌گذاری
+│   └── RoadmapPage.tsx        # نقشه راه توسعه
+└── utils/
+    ├── ai-agent.ts            # موتور هوش مصنوعی (Agent)
+    ├── analytics.ts           # محاسبه امتیازات و بینش‌ها
+    ├── cn.ts                  # ابزار ترکیب کلاس‌های CSS (clsx + twMerge)
+    └── storage.ts             # مدیریت داده در LocalStorage`,
           },
           {
+            // ===== بخش به‌روزرسانی‌شده موتور AI =====
             title: '🧠 موتور AI',
             content: [
-              { label: 'نوع', value: 'Rule-based Behavioral Analysis' },
-              { label: 'قوانین', value: '۸+ قانون رفتاری تخصصی' },
-              { label: 'امتیازدهی', value: 'بهره‌وری، تمرکز، سلامت، اتلاف وقت' },
-              { label: 'توصیه‌ها', value: 'شخصی‌سازی‌شده بر اساس الگوی کاربر' },
-              { label: 'به‌روزرسانی', value: 'آنی با هر تغییر داده' },
+              { label: 'نوع', value: 'Rule-based Behavioral Analysis (Pattern Matching)' },
+              { label: 'الگوهای تشخیص', value: '۱۳+ الگوی رفتاری (بهره‌وری، فرسودگی، خواب، شبکه اجتماعی، اهداف، عادت‌ها، تمرکز، سلامت، مدیریت زمان، و ...)' },
+              { label: 'امتیازدهی', value: '۵ بعد: بهره‌وری، تمرکز، سلامت، اتلاف وقت، تعادل + Life Score کلی' },
+              { label: 'بینش‌ها', value: 'تولید بینش‌های اولویت‌دار با آیکون و نوع (هشدار، موفقیت، اطلاعات، خطر)' },
+              { label: 'توصیه‌ها', value: 'شخصی‌سازی‌شده بر اساس داده‌های کاربر (فعالیت‌ها، اهداف، عادت‌ها)' },
+              { label: 'گزارش‌ها', value: 'تحلیل هفتگی، دسته‌بندی فعالیت‌ها، روندهای روزانه' },
+              { label: 'به‌روزرسانی', value: 'آنی با هر تغییر داده (LocalStorage)' },
+              { label: 'معماری', value: 'بدون Backend – پردازش محلی در مرورگر' },
             ],
           },
         ].map((section, i) => (
@@ -568,7 +722,7 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
           <p style={{ fontSize: '14px', color: '#8b949e', lineHeight: 1.8 }}>
             <strong style={{ color: '#f0f6fc' }}>محمدیاسین بریدلقمانی طوسی</strong><br />
             شماره دانشجویی: ۴۰۲۲۲۳۷۳<br />
-            LifeFlow – خرداد ۱۴۰۵
+            LifeFlow –  ۱۴۰۵
           </p>
         </div>
       </div>

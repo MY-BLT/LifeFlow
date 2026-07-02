@@ -45,9 +45,9 @@ const features = [
 ];
 
 const stats = [
-  { value: '+۴۲٪', label: 'افزایش بهره‌وری', icon: '📈' },
-  { value: '۳.۲h', label: 'صرفه‌جویی روزانه', icon: '⏰' },
-  { value: '۸۷٪', label: 'کاهش استرس', icon: '😌' },
+  { value: '+حدود 40%', label: 'افزایش بهره‌وری', icon: '📈' },
+  { value: 'چندین ساعت', label: 'صرفه‌جویی روزانه', icon: '⏰' },
+  { value: 'حدود 50%', label: 'کاهش استرس', icon: '😌' },
   { value: '...', label: 'کاربر فعال', icon: '👥' },
 ];
 

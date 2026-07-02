@@ -19,41 +19,76 @@ const pageNavItems = [
 
 export default function ProjectExplorer({ onNavigate }: ProjectExplorerProps) {
   return (
-    <section style={{ padding: '80px 24px', borderTop: '1px solid #21262d' }}>
+    <section style={{
+      padding: '64px 24px 48px',
+      borderTop: '1px solid #21262d',
+    }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', fontSize: 'clamp(22px, 3vw, 36px)', fontWeight: 800, color: '#f0f6fc', marginBottom: '12px', letterSpacing: '-0.5px' }}>
-          کاوش در پروژه
-        </h2>
-        <p style={{ textAlign: 'center', fontSize: '14px', color: '#8b949e', marginBottom: '40px' }}>
-          تمام بخش‌های تجاری و فنی LifeFlow را بررسی کنید
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <span style={{
+            fontSize: '11px',
+            color: '#58a6ff',
+            fontWeight: 600,
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
+            display: 'block',
+            marginBottom: '4px',
+          }}>
+            کاوش در پروژه
+          </span>
+          <h2 style={{
+            fontSize: 'clamp(18px, 2vw, 24px)',
+            fontWeight: 700,
+            color: '#f0f6fc',
+            margin: 0,
+          }}>
+            همه بخش‌های LifeFlow
+          </h2>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))',
+          gap: '8px',
+        }}>
           {pageNavItems.map(item => (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
               style={{
-                padding: '18px 14px', borderRadius: '12px',
-                background: '#161b22', border: '1px solid #30363d',
-                cursor: 'pointer', textAlign: 'center',
-                transition: 'all 0.2s', color: '#c9d1d9',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '10px 8px',
+                borderRadius: '10px',
+                background: 'transparent',
+                border: '1px solid #30363d',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                color: '#8b949e',
                 fontFamily: 'Vazirmatn, sans-serif',
+                gap: '4px',
               }}
-              onMouseOver={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = item.color + '60';
-                el.style.background = item.color + '08';
-                el.style.transform = 'translateY(-2px)';
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.borderColor = item.color + '80';
+                el.style.background = item.color + '10';
+                el.style.color = '#f0f6fc';
+                el.style.transform = 'translateY(-1px)';
               }}
-              onMouseOut={e => {
-                const el = e.currentTarget as HTMLElement;
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
                 el.style.borderColor = '#30363d';
-                el.style.background = '#161b22';
-                el.style.transform = 'none';
+                el.style.background = 'transparent';
+                el.style.color = '#8b949e';
+                el.style.transform = 'translateY(0)';
               }}
             >
-              <div style={{ fontSize: '26px', marginBottom: '8px' }}>{item.icon}</div>
-              <div style={{ fontSize: '12px', fontWeight: 600 }}>{item.label}</div>
+              <span style={{ fontSize: '18px', lineHeight: 1 }}>{item.icon}</span>
+              <span style={{ fontSize: '10px', fontWeight: 500, lineHeight: 1.2 }}>
+                {item.label}
+              </span>
             </button>
           ))}
         </div>

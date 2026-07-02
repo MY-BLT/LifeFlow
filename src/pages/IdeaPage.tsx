@@ -3,13 +3,26 @@ import ProjectExplorer from "@/components/ProjectExplorer";
 
 interface Props { onNavigate: (page: string) => void; }
 
-export default function IdeaPage({ onNavigate: _ }: Props) {
-  function onNavigate(_page: string): void {
-    throw new Error("Function not implemented.");
-  }
-
+export default function IdeaPage({ onNavigate }: Props) {
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px' }}>
+      {/* استایل‌های اختصاصی */}
+      <style>{`
+        @keyframes pulseWarning {
+          0% { box-shadow: 0 0 0 0 rgba(248,81,73,0.4); }
+          70% { box-shadow: 0 0 0 12px rgba(248,81,73,0); }
+          100% { box-shadow: 0 0 0 0 rgba(248,81,73,0); }
+        }
+        .problem-critical {
+          animation: pulseWarning 2.5s infinite;
+        }
+        .stat-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(248,81,73,0.4) !important;
+          transition: all 0.3s ease;
+        }
+      `}</style>
+
       <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px' }}>
         {/* Hero */}
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
@@ -18,73 +31,85 @@ export default function IdeaPage({ onNavigate: _ }: Props) {
             LifeFlow چگونه متولد شد؟
           </h1>
           <p style={{ fontSize: '16px', color: '#8b949e', maxWidth: '600px', margin: '0 auto', lineHeight: 1.8 }}>
-            داستان تولد یک ایده از دل یک مشکل واقعی
+            داستان تولد یک ایده از دل یک مشکل واقعی و دردناک
           </p>
         </div>
 
-        {/* Problem Statement */}
-        <div style={{
-          background: 'rgba(248,81,73,0.06)', border: '1px solid rgba(248,81,73,0.2)',
-          borderRadius: '16px', padding: '32px', marginBottom: '32px',
+        {/* Problem Statement - اغراق‌شده و جدی */}
+        <div className="problem-critical" style={{
+          background: 'linear-gradient(145deg, rgba(248,81,73,0.1), rgba(248,81,73,0.03))', 
+          border: '1px solid rgba(248,81,73,0.5)',
+          borderRadius: '16px', padding: '40px', marginBottom: '40px',
+          position: 'relative', overflow: 'hidden'
         }}>
-          <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f0f6fc', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '24px' }}>😤</span> مشکل اصلی
+          <div style={{ position: 'absolute', top: '-20px', left: '-20px', fontSize: '180px', opacity: '0.05', pointerEvents: 'none' }}>
+            ⚠️
+          </div>
+          
+          <span style={{ display: 'inline-block', padding: '4px 12px', background: '#f8514920', color: '#f85149', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '16px', letterSpacing: '1px' }}>
+            بحران خاموش
+          </span>
+          
+          <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#f0f6fc', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '30px' }}>🚨</span> مشکل اصلی: حلقه باطل شکست
           </h2>
-          <p style={{ fontSize: '15px', color: '#c9d1d9', lineHeight: 1.9, marginBottom: '16px' }}>
-            هر روز صبح با یک برنامه می‌نشستیم. هر شب با احساس شکست می‌خوابیدیم. نه به خاطر تنبلی، بلکه چون ابزارهایی که داشتیم فقط کارها را <strong style={{ color: '#f0f6fc' }}>نشان</strong> می‌دادند اما هرگز نمی‌گفتند <strong style={{ color: '#f85149' }}>چرا اهداف شکست می‌خورند.</strong>
+          
+          <p style={{ fontSize: '16px', color: '#f0f6fc', lineHeight: 2, marginBottom: '20px' }}>
+            هر روز صبح با انگیزه و یک برنامه دقیق می‌نشستیم. هر شب با احساس گناه و شکست می‌خوابیدیم. نه به خاطر تنبلی، بلکه چون ابزارهایی که داشتیم فقط کارها را <strong style={{ color: '#f0f6fc', borderBottom: '2px dotted #8b949e' }}>نشان</strong> می‌دادند، اما هرگز نمی‌گفتند <strong style={{ color: '#f85149' }}>چرا اهداف شکست می‌خورند.</strong>
           </p>
+          
+          <div style={{ height: '1px', background: 'rgba(248,81,73,0.3)', margin: '24px 0' }} />
+          
           <p style={{ fontSize: '15px', color: '#c9d1d9', lineHeight: 1.9 }}>
-            اپلیکیشن‌های موجود مثل Todoist، Notion و Toggl تسک‌ها را مدیریت می‌کنند. اما هیچ‌کدام نمی‌پرسند: "آیا می‌دانید ۳ ساعت روزانه‌تان کجا ناپدید می‌شود؟ آیا می‌دانید الگوی رفتاری شما در شب منجر به شکست برنامه‌های صبح می‌شود؟"
+            اپلیکیشن‌های موجود خارجی مثل Todoist، Notion و Toggl و یا ایرانی مثل تسکولو و میزیتو، تسک‌ها را مدیریت می‌کنند. اما هیچ‌کدام نمی‌پرسند: 
+            <br />
+            <em style={{ color: '#d29922', fontWeight: 600, marginTop: '12px', display: 'inline-block' }}>
+              "آیا می‌دانید ۳ ساعت از روزتان کجا ناپدید می‌شود؟ آیا می‌دانید الگوی رفتاری شما در شب، منجر به شکست برنامه‌های صبح می‌شود؟"
+            </em>
           </p>
         </div>
 
-        {/* Origin Story Timeline */}
+        {/* Origin Story Timeline - با تاریخ‌های اصلاح‌شده */}
         <div className="card" style={{ marginBottom: '32px', padding: '32px' }}>
           <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f0f6fc', marginBottom: '28px' }}>
             📅 جدول زمانی شکل‌گیری ایده
           </h2>
           {[
             {
-              date: 'دی ۱۴۰۴',
-              title: 'مشاهده اول – مشکل شخصی',
-              desc: 'محقق پروژه متوجه می‌شود که علی‌رغم استفاده از ۴ اپلیکیشن مدیریت وقت، هنوز ۳-۴ ساعت از روزش بدون بازده می‌گذرد. هیچ ابزاری علت را توضیح نمی‌دهد.',
+              date: 'فروردین ۱۴۰۵',
+              title: 'مشاهده اول – کشف مشکل شخصی',
+              desc: 'محقق پروژه متوجه می‌شود که علی‌رغم استفاده از چندین اپلیکیشن مدیریت وقت، هنوز ساعاتی از روز بدون بازده می‌گذرد و هیچ ابزاری علت را توضیح نمی‌دهد. جرقه اولیه برای ایجاد یک راه‌حل جدید زده می‌شود.',
               color: '#58a6ff',
             },
             {
-              date: 'بهمن ۱۴۰۴',
+              date: 'اردیبهشت ۱۴۰۵',
               title: 'تحقیق بازار اولیه',
-              desc: 'با ۵۰ دانشجو و حرفه‌ای گفتگو شد. ۸۸٪ از آن‌ها گفتند ابزارهای موجود "نشان می‌دهند اما یاد نمی‌دهند". این اعتبارسنجی اولیه بود.',
+              desc: 'با تعداد محدودی از دانشجویان و حرفه‌ای‌ها گفتگو شد. اکثر آن‌ها اشاره کردند ابزارهای موجود "نشان می‌دهند اما یاد نمی‌دهند". این اعتبارسنجی اولیه، ضرورت ساخت محصولی با رویکرد تحلیلی را تأیید کرد.',
               color: '#3fb950',
             },
             {
-              date: 'اسفند ۱۴۰۴',
-              title: 'شناسایی فرصت بازار',
-              desc: 'بررسی بازار نشان داد هیچ پلتفرمی در ایران تحلیل رفتاری عمیق بهره‌وری را ارائه نمی‌دهد. فرصت ۲۰۰ میلیون دلاری در منطقه MENA.',
-              color: '#d29922',
-            },
-            {
-              date: 'فروردین ۱۴۰۵',
-              title: 'طراحی راه‌حل اولیه',
-              desc: 'اولین پروتوتایپ LifeFlow طراحی شد. رویکرد: نه فقط ثبت زمان، بلکه تحلیل الگو + هوش مصنوعی + توصیه‌های شخصی‌سازی‌شده.',
+              date: 'خرداد ۱۴۰۵',
+              title: 'طراحی و توسعه MVP',
+              desc: 'اولین نسخه MVP (حداقل محصول قابل عرضه) طراحی و پیاده‌سازی شد. رویکرد اصلی: نه فقط ثبت زمان، بلکه تحلیل الگوهای رفتاری با هوش مصنوعی و ارائه توصیه‌های شخصی‌سازی‌شده.',
               color: '#bc8cff',
             },
             {
-              date: 'خرداد ۱۴۰۵',
-              title: 'MVP و اعتبارسنجی',
-              desc: 'نسخه MVP با امکانات کامل آماده شد. آزمایش با ۱۲,۰۰۰+ کاربر اولیه نشان داد ۹۲٪ از کاربران "بینش جدیدی" درباره رفتار خود پیدا کردند.',
+              date: 'تیر ۱۴۰۵ (تا ۸ تیر)',
+              title: 'اعتبارسنجی و بهبودهای نهایی',
+              desc: 'نسخه اولیه روی تعداد محدودی از کاربران منتخب تست شد و بازخوردهای اولیه جمع‌آوری گردید. بر اساس آن، بهبودهای نهایی اعمال شد. در تاریخ ۸ تیر، نسخه پایدار برای ارائه عمومی آماده گردید.',
               color: '#f85149',
             },
           ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: '20px', marginBottom: i < 4 ? '28px' : 0 }}>
+            <div key={i} style={{ display: 'flex', gap: '20px', marginBottom: i < 3 ? '28px' : 0 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '16px' }}>
                 <div style={{
                   width: '16px', height: '16px', borderRadius: '50%',
                   background: item.color, border: '3px solid #161b22',
                   boxShadow: `0 0 10px ${item.color}80`, flexShrink: 0,
                 }} />
-                {i < 4 && <div style={{ flex: 1, width: '2px', background: '#30363d', marginTop: '4px' }} />}
+                {i < 3 && <div style={{ flex: 1, width: '2px', background: '#30363d', marginTop: '4px' }} />}
               </div>
-              <div style={{ flex: 1, paddingBottom: i < 4 ? '0' : 0 }}>
+              <div style={{ flex: 1, paddingBottom: i < 3 ? '0' : 0 }}>
                 <div style={{ fontSize: '12px', color: item.color, fontWeight: 600, marginBottom: '4px' }}>{item.date}</div>
                 <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#f0f6fc', marginBottom: '8px' }}>{item.title}</h3>
                 <p style={{ fontSize: '14px', color: '#8b949e', lineHeight: 1.7 }}>{item.desc}</p>
@@ -125,9 +150,9 @@ export default function IdeaPage({ onNavigate: _ }: Props) {
                 color: '#58a6ff',
               },
             ].map((item, i) => (
-              <div key={i} className="card" style={{ padding: '24px' }}>
+              <div key={i} className="card stat-card" style={{ padding: '24px', borderTop: `3px solid ${item.color}` }}>
                 <div style={{ fontSize: '32px', marginBottom: '12px' }}>{item.icon}</div>
-                <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#f0f6fc', marginBottom: '10px' }}>{item.title}</h3>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#f0f6fc', marginBottom: '10px' }}>{item.title}</h3>
                 <p style={{ fontSize: '13px', color: '#8b949e', lineHeight: 1.7 }}>{item.desc}</p>
               </div>
             ))}
@@ -144,13 +169,12 @@ export default function IdeaPage({ onNavigate: _ }: Props) {
             💡 راه‌حل LifeFlow
           </h2>
           <p style={{ fontSize: '16px', color: '#8b949e', lineHeight: 1.9, maxWidth: '700px', margin: '0 auto' }}>
-            LifeFlow اولین پلتفرم ایرانی است که با هوش مصنوعی، نه فقط <strong style={{ color: '#f0f6fc' }}>چه</strong> کار می‌کنید، بلکه <strong style={{ color: '#58a6ff' }}>چرا</strong> موفق یا ناموفق هستید را کشف می‌کند. تبدیل داده‌های خام به بینش‌های عملی و قابل اقدام.
+            LifeFlow جزء اولین پلتفرم‌های ایرانی است که با هوش مصنوعی، نه فقط <strong style={{ color: '#f0f6fc' }}>چه</strong> کار می‌کنید، بلکه <strong style={{ color: '#58a6ff' }}>چرا</strong> موفق یا ناموفق هستید را کشف می‌کند. تبدیل داده‌های خام به بینش‌های عملی و قابل اقدام.
           </p>
         </div>
-        {/* Project Sections Grid */}
+
+        {/* Project Sections Grid & Footer */}
         <ProjectExplorer onNavigate={onNavigate} />
-  
-        {/* Footer */}
         <Footer onNavigate={onNavigate} />
       </div>
     </div>

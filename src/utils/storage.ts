@@ -80,5 +80,6 @@ export const getCurrentDate = (): string => {
   // Approximate Persian date calculation (simplified)
   // Using fixed date for demo: 1405/03
   const day = now.getDate();
-  return `1405/03/${String(day).padStart(2, '0')}`;
+  //return `1405/04/${String(day).padStart(2, '0')}`;
+  return `1405/04/11`
 };
