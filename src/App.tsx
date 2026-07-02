@@ -13,6 +13,10 @@ import RevenuePage from './pages/RevenuePage';
 import RoadmapPage from './pages/RoadmapPage';
 import MarketingPage from './pages/MarketingPage';
 import React from 'react';
+import Footer from "@/components/Footer";
+import ProjectExplorer from "@/components/ProjectExplorer";
+import ReactMarkdown from 'react-markdown';
+
 
 type Page =
   | 'home' | 'login'
@@ -617,19 +621,210 @@ function IntermediationPage({ onNavigate: _ }: { onNavigate: (p: string) => void
   );
 }
 
-// ===== در فایل App.tsx، بخش DocsPage را با این بخش جایگزین کنید =====
+function DocsPage({ onNavigate }: { onNavigate: (p: string) => void }) {
+  const [previewMode, setPreviewMode] = useState<'none' | 'pdf' | 'readme'>('none');
+  const [readmeContent, setReadmeContent] = useState<string>('در حال بارگذاری...');
 
-function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
+  useEffect(() => {
+    if (previewMode === 'readme') {
+      fetch('/doc/README.md')
+        .then((res) => {
+          if (!res.ok) throw new Error('فایل یافت نشد');
+          return res.text();
+        })
+        .then(setReadmeContent)
+        .catch(() => setReadmeContent('⚠️ خطا در بارگذاری فایل README.md. مطمئن شوید فایل در پوشه public قرار دارد.'));
+    }
+  }, [previewMode]);
+
+  const documents = [
+    {
+      id: 'pdf',
+      title: 'گزارش نهایی پروژه',
+      desc: 'مستند جامع تحلیل کسب‌وکار، مدل درآمدی، طرح بازاریابی، بوم کسب‌وکار و شرح دمو.',
+      fileName: 'LifeFlow-Report.pdf',
+      type: 'PDF',
+      color: '#f85149',
+      fileUrl: '/doc/LifeFlow-Report.pdf',
+    },
+    {
+      id: 'readme',
+      title: 'مستندات سورس‌کد',
+      desc: 'فایل راهنمای نصب، راه‌اندازی، معماری فنی و توضیحات ساختار پروژه.',
+      fileName: 'README.md',
+      type: 'MD',
+      color: '#58a6ff',
+      fileUrl: '/doc/README.md',
+    }
+  ];
+
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px' }}>
+    <div style={{ minHeight: '100vh', background: '#0d1117', paddingTop: '80px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      
+      <style dangerouslySetInnerHTML={{__html: `
+        .doc-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .doc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
+        .doc-card:hover .doc-preview { transform: scale(1.05) rotate(2deg); }
+        .doc-preview { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-hover { transition: all 0.2s ease; cursor: pointer; }
+        .btn-hover:hover { filter: brightness(1.2); }
+        
+        .markdown-body { color: #c9d1d9; font-size: 14px; line-height: 1.8; text-align: right; direction: rtl; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #f0f6fc; border-bottom: 1px solid #30363d; padding-bottom: 8px; margin-top: 24px; margin-bottom: 16px; }
+        .markdown-body p { margin-bottom: 16px; }
+        .markdown-body a { color: #58a6ff; text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body ul, .markdown-body ol { padding-right: 24px; margin-bottom: 16px; }
+        .markdown-body code { background: rgba(110,118,129,0.4); padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 12px; }
+        .markdown-body pre { background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 16px; border: 1px solid #30363d; direction: ltr; text-align: left; }
+        .markdown-body img { max-width: 100%; border-radius: 8px; margin: 16px 0; }
+        .markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        .markdown-body th, .markdown-body td { border: 1px solid #30363d; padding: 8px 12px; }
+        .markdown-body th { background: #161b22; }
+      `}} />
+
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
+        
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span className="badge badge-blue" style={{ marginBottom: '16px', display: 'inline-flex' }}>مستندات</span>
           <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#f0f6fc', marginBottom: '16px' }}>
-            مستندات فنی LifeFlow
+            مرکز مستندات LifeFlow
           </h1>
+          <p style={{ fontSize: '15px', color: '#8b949e', maxWidth: '600px', margin: '0 auto' }}>
+            گزارش‌های تحلیلی، ساختار معماری و سورس‌کد پلتفرم
+          </p>
         </div>
 
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}>
+          {documents.map((doc, i) => (
+            <div key={i} className="card doc-card" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column', border: '1px solid #30363d' }}>
+              <div style={{ height: '160px', background: `linear-gradient(145deg, ${doc.color}15 0%, #0d1117 100%)`, borderBottom: '1px solid #30363d', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: '12px', right: '12px', background: `${doc.color}20`, color: doc.color, padding: '2px 8px', borderRadius: '6px', fontSize: '10px', fontWeight: 800 }}>
+                  {doc.type}
+                </div>
+                <div className="doc-preview" style={{ width: '80px', height: '100px', background: '#fff', borderRadius: '4px', boxShadow: '0 8px 16px rgba(0,0,0,0.5)', padding: '8px', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ height: '6px', width: '70%', background: doc.color, borderRadius: '4px', marginBottom: '8px' }} />
+                  <div style={{ height: '3px', width: '100%', background: '#e1e4e8', borderRadius: '2px', marginBottom: '4px' }} />
+                  <div style={{ height: '3px', width: '90%', background: '#e1e4e8', borderRadius: '2px', marginBottom: '4px' }} />
+                  <div style={{ height: '3px', width: '80%', background: '#e1e4e8', borderRadius: '2px', marginBottom: '8px' }} />
+                  <div style={{ flex: 1, background: '#f6f8fa', borderRadius: '4px', border: '1px dashed #d1d5da', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ fontSize: '16px', color: '#d1d5da' }}>{doc.type === 'PDF' ? '📊' : '💻'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#f0f6fc', marginBottom: '8px' }}>{doc.title}</h3>
+                <p style={{ fontSize: '12px', color: '#8b949e', marginBottom: '20px', lineHeight: 1.6, flex: 1 }}>{doc.desc}</p>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <button 
+                    onClick={() => setPreviewMode(doc.id as 'pdf' | 'readme')}
+                    className="btn-hover" 
+                    style={{ padding: '10px', background: '#21262d', color: '#c9d1d9', borderRadius: '8px', fontSize: '13px', fontWeight: 600, border: '1px solid #30363d' }}>
+                    👁️ مشاهده
+                  </button>
+                  <a href={doc.fileUrl} download className="btn-hover" style={{ textAlign: 'center', padding: '10px', background: `${doc.color}15`, color: doc.color, borderRadius: '8px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', border: `1px solid ${doc.color}40` }}>
+                    📥 دانلود
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ===== محیط نمایش فایل (Fixed Preview) ===== */}
+        {previewMode !== 'none' && (
+          <div style={{ marginBottom: '56px', padding: '24px', background: '#161b22', borderRadius: '16px', border: '1px solid #30363d' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid #30363d', paddingBottom: '16px' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f0f6fc', margin: 0 }}>
+                {previewMode === 'pdf' ? '📄 پیش‌نمایش گزارش PDF' : '📘 پیش‌نمایش README.md'}
+              </h2>
+              <button 
+                onClick={() => setPreviewMode('none')}
+                style={{ background: '#f8514920', color: '#f85149', border: '1px solid #f8514940', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}>
+                بستن ×
+              </button>
+            </div>
+
+            {previewMode === 'pdf' ? (
+              <div style={{ textAlign: 'center' }}>
+                {/* Method 1: Direct link with fallback message */}
+                <div style={{ padding: '40px', background: '#0d1117', borderRadius: '12px', border: '1px solid #30363d' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '20px' }}>📄</div>
+                  <h3 style={{ color: '#f0f6fc', marginBottom: '16px' }}>گزارش نهایی پروژه</h3>
+                  <p style={{ color: '#8b949e', marginBottom: '24px' }}>
+                    برای مشاهده فایل PDF، لطفاً از یکی از گزینه‌های زیر استفاده کنید:
+                  </p>
+                  <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <a 
+                      href="/doc/LifeFlow-Report.pdf" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-hover"
+                      style={{ 
+                        padding: '12px 24px', 
+                        background: '#238636', 
+                        color: '#fff', 
+                        borderRadius: '8px', 
+                        fontSize: '14px', 
+                        fontWeight: 600, 
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                      🔗 باز کردن در تب جدید
+                    </a>
+                    <a 
+                      href="/doc/LifeFlow-Report.pdf" 
+                      download
+                      className="btn-hover"
+                      style={{ 
+                        padding: '12px 24px', 
+                        background: '#1f6feb', 
+                        color: '#fff', 
+                        borderRadius: '8px', 
+                        fontSize: '14px', 
+                        fontWeight: 600, 
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                      📥 دانلود فایل
+                    </a>
+                  </div>
+                  
+                  {/* Fallback iframe (may work in some browsers) */}
+                  <div style={{ marginTop: '32px' }}>
+                    <iframe 
+                      src="/doc/LifeFlow-Report.pdf#toolbar=1&navpanes=1&scrollbar=1" 
+                      width="100%" 
+                      height="800px" 
+                      style={{ 
+                        border: '1px solid #30363d', 
+                        borderRadius: '12px', 
+                        background: '#fff',
+                        display: 'block'
+                      }}
+                      title="PDF Preview"
+                    />
+                    <p style={{ color: '#6e7681', fontSize: '12px', marginTop: '12px' }}>
+                      ℹ️ اگر PDF بالا نمایش داده نشد، از دکمه "باز کردن در تب جدید" استفاده کنید
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="markdown-body">
+                <ReactMarkdown>{readmeContent}</ReactMarkdown>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Technical Documentation Sections */}
         {[
           {
             title: '🏗️ معماری پروژه',
@@ -645,43 +840,41 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
           {
             title: '📁 ساختار فایل‌ها',
             code: `src/
-├── App.tsx                    # Router اصلی
-├── main.tsx                   # نقطه ورود برنامه
-├── index.css                  # سیستم طراحی
-├── project_dump.txt           # خروجی دامپ پروژه (مختص توسعه)
+├── App.tsx
+├── main.tsx
+├── index.css
 ├── components/
-│   ├── Footer.tsx             # فوتر سایت
-│   ├── Navbar.tsx             # نوار ناوبری
-│   └── ProjectExplorer.tsx    # اکسپلورر بخش‌های پروژه
+│   ├── Footer.tsx
+│   ├── Navbar.tsx
+│   └── ProjectExplorer.tsx
 ├── data/
-│   └── sampleData.ts          # داده‌های نمونه (فعالیت‌ها، تیم، ...)
+│   └── sampleData.ts
 ├── pages/
-│   ├── HomePage.tsx           # صفحه اصلی
-│   ├── LoginPage.tsx          # ورود به سیستم
-│   ├── PersonalDemoPage.tsx   # دمو شخصی (داشبورد کاربر)
-│   ├── OrgDemoPage.tsx        # دمو سازمانی (داشبورد تیم)
-│   ├── IdeaPage.tsx           # منشأ ایده
-│   ├── MaturityPage.tsx       # بلوغ ایده
-│   ├── ValuePage.tsx          # خلق ارزش
-│   ├── BusinessModelPage.tsx  # مدل کسب‌وکار (BMC)
-│   ├── MarketPage.tsx         # تحلیل بازار و رقبا
-│   ├── MarketingPage.tsx      # استراتژی بازاریابی
-│   ├── RevenuePage.tsx        # مدل درآمد و قیمت‌گذاری
-│   └── RoadmapPage.tsx        # نقشه راه توسعه
+│   ├── BusinessModelPage.tsx
+│   ├── HomePage.tsx
+│   ├── IdeaPage.tsx
+│   ├── LoginPage.tsx
+│   ├── MarketPage.tsx
+│   ├── MarketingPage.tsx
+│   ├── MaturityPage.tsx
+│   ├── OrgDemoPage.tsx
+│   ├── PersonalDemoPage.tsx
+│   ├── RevenuePage.tsx
+│   ├── RoadmapPage.tsx
+│   └── ValuePage.tsx
 └── utils/
-    ├── ai-agent.ts            # موتور هوش مصنوعی (Agent)
-    ├── analytics.ts           # محاسبه امتیازات و بینش‌ها
-    ├── cn.ts                  # ابزار ترکیب کلاس‌های CSS (clsx + twMerge)
-    └── storage.ts             # مدیریت داده در LocalStorage`,
+    ├── ai-agent.ts
+    ├── analytics.ts
+    ├── cn.ts
+    └── storage.ts`
           },
           {
-            // ===== بخش به‌روزرسانی‌شده موتور AI =====
             title: '🧠 موتور AI',
             content: [
               { label: 'نوع', value: 'Rule-based Behavioral Analysis (Pattern Matching)' },
-              { label: 'الگوهای تشخیص', value: '۱۳+ الگوی رفتاری (بهره‌وری، فرسودگی، خواب، شبکه اجتماعی، اهداف، عادت‌ها، تمرکز، سلامت، مدیریت زمان، و ...)' },
+              { label: 'الگوهای تشخیص', value: '۱۳+ الگوی رفتاری (بهره‌وری، فرسودگی، خواب، تمرکز، ...)' },
               { label: 'امتیازدهی', value: '۵ بعد: بهره‌وری، تمرکز، سلامت، اتلاف وقت، تعادل + Life Score کلی' },
-              { label: 'بینش‌ها', value: 'تولید بینش‌های اولویت‌دار با آیکون و نوع (هشدار، موفقیت، اطلاعات، خطر)' },
+              { label: 'بینش‌ها', value: 'تولید بینش‌های اولویت‌دار با آیکون و نوع (هشدار، موفقیت، ...)' },
               { label: 'توصیه‌ها', value: 'شخصی‌سازی‌شده بر اساس داده‌های کاربر (فعالیت‌ها، اهداف، عادت‌ها)' },
               { label: 'گزارش‌ها', value: 'تحلیل هفتگی، دسته‌بندی فعالیت‌ها، روندهای روزانه' },
               { label: 'به‌روزرسانی', value: 'آنی با هر تغییر داده (LocalStorage)' },
@@ -694,8 +887,8 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
             {'content' in section ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '12px' }}>
                 {section.content?.map((item, k) => (
-                  <div key={k} style={{ display: 'flex', gap: '10px', padding: '10px', background: '#0d1117', borderRadius: '8px' }}>
-                    <span style={{ fontSize: '12px', color: '#8b949e', minWidth: '100px' }}>{item.label}:</span>
+                  <div key={k} style={{ display: 'flex', gap: '10px', padding: '10px', background: '#0d1117', borderRadius: '8px', border: '1px solid #21262d' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 600, color: '#8b949e', minWidth: '100px' }}>{item.label}:</span>
                     <span style={{ fontSize: '12px', color: '#c9d1d9' }}>{item.value}</span>
                   </div>
                 ))}
@@ -703,8 +896,8 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
             ) : (
               <pre style={{
                 background: '#0d1117', border: '1px solid #30363d', borderRadius: '8px',
-                padding: '16px', fontSize: '12px', color: '#8b949e', overflow: 'auto',
-                fontFamily: 'monospace', lineHeight: 1.6,
+                padding: '20px', fontSize: '13px', color: '#58a6ff', overflowX: 'auto',
+                fontFamily: 'monospace', lineHeight: 1.6, direction: 'ltr', textAlign: 'left'
               }}>
                 {section.code}
               </pre>
@@ -712,19 +905,11 @@ function DocsPage({ onNavigate: _ }: { onNavigate: (p: string) => void }) {
           </div>
         ))}
 
-        {/* About */}
-        <div style={{
-          padding: '28px', borderRadius: '16px',
-          background: 'rgba(88,166,255,0.06)', border: '1px solid rgba(88,166,255,0.2)',
-          textAlign: 'center',
-        }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#f0f6fc', marginBottom: '12px' }}>👨‍💻 درباره توسعه‌دهنده</h2>
-          <p style={{ fontSize: '14px', color: '#8b949e', lineHeight: 1.8 }}>
-            <strong style={{ color: '#f0f6fc' }}>محمدیاسین بریدلقمانی طوسی</strong><br />
-            شماره دانشجویی: ۴۰۲۲۲۳۷۳<br />
-            LifeFlow –  ۱۴۰۵
-          </p>
+        <div style={{ marginTop: '56px' }}>
+          <ProjectExplorer onNavigate={onNavigate} />
+          <Footer onNavigate={onNavigate} />
         </div>
+
       </div>
     </div>
   );
