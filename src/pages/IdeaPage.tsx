@@ -35,39 +35,93 @@ export default function IdeaPage({ onNavigate }: Props) {
           </p>
         </div>
 
-        {/* Problem Statement - اغراق‌شده و جدی */}
-        <div className="problem-critical" style={{
-          background: 'linear-gradient(145deg, rgba(248,81,73,0.1), rgba(248,81,73,0.03))', 
-          border: '1px solid rgba(248,81,73,0.5)',
-          borderRadius: '16px', padding: '40px', marginBottom: '40px',
-          position: 'relative', overflow: 'hidden'
-        }}>
-          <div style={{ position: 'absolute', top: '-20px', left: '-20px', fontSize: '180px', opacity: '0.05', pointerEvents: 'none' }}>
-            ⚠️
-          </div>
-          
-          <span style={{ display: 'inline-block', padding: '4px 12px', background: '#f8514920', color: '#f85149', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '16px', letterSpacing: '1px' }}>
-            بحران خاموش
-          </span>
-          
-          <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#f0f6fc', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '30px' }}>🚨</span> مشکل اصلی: حلقه باطل شکست
-          </h2>
-          
-          <p style={{ fontSize: '16px', color: '#f0f6fc', lineHeight: 2, marginBottom: '20px' }}>
-            هر روز صبح با انگیزه و یک برنامه دقیق می‌نشستیم. هر شب با احساس گناه و شکست می‌خوابیدیم. نه به خاطر تنبلی، بلکه چون ابزارهایی که داشتیم فقط کارها را <strong style={{ color: '#f0f6fc', borderBottom: '2px dotted #8b949e' }}>نشان</strong> می‌دادند، اما هرگز نمی‌گفتند <strong style={{ color: '#f85149' }}>چرا اهداف شکست می‌خورند.</strong>
-          </p>
-          
-          <div style={{ height: '1px', background: 'rgba(248,81,73,0.3)', margin: '24px 0' }} />
-          
-          <p style={{ fontSize: '15px', color: '#c9d1d9', lineHeight: 1.9 }}>
-            اپلیکیشن‌های موجود خارجی مثل Todoist، Notion و Toggl و یا ایرانی مثل تسکولو و میزیتو، تسک‌ها را مدیریت می‌کنند. اما هیچ‌کدام نمی‌پرسند: 
-            <br />
-            <em style={{ color: '#d29922', fontWeight: 600, marginTop: '12px', display: 'inline-block' }}>
-              "آیا می‌دانید ۳ ساعت از روزتان کجا ناپدید می‌شود؟ آیا می‌دانید الگوی رفتاری شما در شب، منجر به شکست برنامه‌های صبح می‌شود؟"
-            </em>
-          </p>
-        </div>
+  {/* Problem Statement - واقعی‌تر و تاثیرگذارتر */}
+<div className="problem-critical" style={{
+  background: 'linear-gradient(145deg, rgba(248,81,73,0.1), rgba(248,81,73,0.03))', 
+  border: '1px solid rgba(248,81,73,0.5)',
+  borderRadius: '16px', padding: '40px', marginBottom: '40px',
+  position: 'relative', overflow: 'hidden'
+}}>
+  <div style={{ position: 'absolute', top: '-20px', left: '-20px', fontSize: '180px', opacity: '0.05', pointerEvents: 'none' }}>
+    ⚠️
+  </div>
+  
+  <span style={{ display: 'inline-block', padding: '4px 12px', background: '#f8514920', color: '#f85149', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '16px', letterSpacing: '1px' }}>
+    مشکل واقعی
+  </span>
+  
+  <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#f0f6fc', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <span style={{ fontSize: '30px' }}>⏱️</span> وقت می‌گذرد، اما نمی‌دانیم کجا؟
+  </h2>
+  
+  <p style={{ fontSize: '16px', color: '#f0f6fc', lineHeight: 2, marginBottom: '20px' }}>
+    ساعت ۹ صبح: "<em>امروز حتماً پروژه رو تموم می‌کنم</em>"<br />
+    ساعت ۱۱ شب: "<em>باز هیچ‌کاری انجام ندادم... فردا درستش می‌کنم</em>"
+  </p>
+  
+  <p style={{ fontSize: '15px', color: '#c9d1d9', lineHeight: 1.9, marginBottom: '24px' }}>
+    این داستان هر روز تکرار می‌شود. نه به خاطر تنبلی، بلکه چون <strong style={{ color: '#f85149' }}>هیچ‌وقت متوجه نمی‌شویم وقتمان دقیقاً کجا اتلاف شد.</strong>
+  </p>
+  
+  <div style={{ height: '1px', background: 'rgba(248,81,73,0.3)', margin: '28px 0' }} />
+  
+  <div style={{ display: 'grid', gap: '16px' }}>
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+      <span style={{ fontSize: '20px', marginTop: '2px' }}>📱</span>
+      <div>
+        <strong style={{ color: '#f0f6fc', display: 'block', marginBottom: '4px' }}>
+          "فقط یک لحظه اینستاگرام چک می‌کنم..."
+        </strong>
+        <span style={{ color: '#8b949e', fontSize: '14px' }}>
+          → ۴۵ دقیقه بعد هنوز در حال اسکرول هستید
+        </span>
+      </div>
+    </div>
+    
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+      <span style={{ fontSize: '20px', marginTop: '2px' }}>💬</span>
+      <div>
+        <strong style={{ color: '#f0f6fc', display: 'block', marginBottom: '4px' }}>
+          "چت‌ها رو یه سریع جواب بدم..."
+        </strong>
+        <span style={{ color: '#8b949e', fontSize: '14px' }}>
+          → ۲ ساعت در چت‌های بی‌نتیجه گذشت
+        </span>
+      </div>
+    </div>
+    
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+      <span style={{ fontSize: '20px', marginTop: '2px' }}>🎮</span>
+      <div>
+        <strong style={{ color: '#f0f6fc', display: 'block', marginBottom: '4px' }}>
+          "یک دست بازی برای استراحت..."
+        </strong>
+        <span style={{ color: '#8b949e', fontSize: '14px' }}>
+          → عصر شد و هنوز به کار اصلی نرسیدید
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div style={{ height: '1px', background: 'rgba(248,81,73,0.3)', margin: '28px 0' }} />
+  
+  <div style={{ background: 'rgba(248,81,73,0.08)', borderRadius: '12px', padding: '20px', borderRight: '3px solid #f85149' }}>
+    <p style={{ fontSize: '15px', color: '#f0f6fc', lineHeight: 1.8, margin: 0 }}>
+      <strong style={{ color: '#f85149', fontSize: '16px' }}>نتیجه؟</strong><br />
+      شما نمی‌دانید امروز <span style={{ color: '#d29922', fontWeight: 600 }}>۳ ساعت</span> در شبکه‌های اجتماعی، 
+      <span style={{ color: '#d29922', fontWeight: 600 }}> ۲ ساعت</span> در چت‌های غیرضروری و 
+      <span style={{ color: '#d29922', fontWeight: 600 }}> ۱.۵ ساعت</span> در یوتیوب گذاشتید.
+    </p>
+  </div>
+  
+  <div style={{ marginTop: '24px', padding: '16px', background: 'rgba(139,148,158,0.1)', borderRadius: '8px', border: '1px dashed rgba(139,148,158,0.3)' }}>
+    <p style={{ fontSize: '14px', color: '#8b949e', margin: 0, lineHeight: 1.7 }}>
+      💡 <strong style={{ color: '#c9d1d9' }}>ابزارهای موجود چه می‌کنند؟</strong><br />
+      Todoist تسک‌ها را لیست می‌کند. Notion یادداشت می‌گیرد. Toggl زمان کاری را ثبت می‌کند.<br />
+      <em style={{ color: '#f85149', fontWeight: 600 }}>اما هیچ‌کدام نمی‌گویند "چرا امروز باز شکست خوردی؟"</em>
+    </p>
+  </div>
+</div>
 
         {/* Origin Story Timeline - با تاریخ‌های اصلاح‌شده */}
         <div className="card" style={{ marginBottom: '32px', padding: '32px' }}>
